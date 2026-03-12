@@ -6,6 +6,24 @@ It forked the repos, read each project's contribution guidelines, scouted and se
 
 Total human intervention: approving which issues to work on. Everything else was autonomous.
 
+More importantly: the pipeline **iterated on itself**. V1 exposed gaps — unsigned CLAs, missing formatting, no post-submission monitoring. V2 closed every gap, added a fourth repo, and ran faster. That's the real story. Not "AI fixed bugs." But "AI fixed bugs, learned what went wrong, and did it better the second time."
+
+---
+
+## Key Takeaways
+
+1. **The pipeline iterates on itself.** V1 shipped 6 PRs but exposed 5 process gaps. V2 closed every one and shipped 8 more with zero failures. The iteration — not the PRs — is the capability.
+
+2. **Orchestration, not automation.** Automation runs scripts — if something unexpected happens, it fails. Orchestration manages agents that understand context, adapt to failures, and follow rules they learned. When V1's branch isolation timed out on multi-GB repos, the pipeline adapted. When CLA enforcement blocked PRs, the pipeline added a prerequisites gate. A script would have stopped. The orchestration layer improved.
+
+3. **Scale without pipeline changes.** Adding Grafana as a 4th repo — a Go+TypeScript hybrid with completely different contribution conventions — required zero changes to the pipeline. Phase 1 learned Grafana's rules. Phase 3 followed them. The orchestration doesn't change. The domain knowledge does.
+
+4. **Speed compounds.** Switching from Codex to Claude agents gave a 3-10x speedup. V2 processed more issues (8 vs 6) in less time (1.5h vs 2h). The pipeline gets faster as it gets better.
+
+5. **The human role is curation, not execution.** Two approval gates across both runs. Everything else — reading docs, selecting issues, writing code, formatting PRs, handling failures, improving the pipeline — was autonomous.
+
+6. **Post-submission monitoring closes the loop.** V1 submitted PRs and walked away. V2's cron-triggered sweep catches bot failures (auto-fixed), reviewer questions (surfaced as human tasks), and status changes (tracked through merge or close). The pipeline doesn't submit and forget.
+
 ---
 
 ## The Numbers
@@ -205,6 +223,20 @@ Building on [V1 lessons](docs/lessons-learned.md):
 - **Claude agent type is significantly faster** — 2-7 min per task vs 7-39 min with Codex, with no quality loss.
 - **Combined validation + PR submission** — V2 consolidated 3 validation tasks + PR submission into a single task, reducing overhead without losing quality.
 - **Post-submission monitoring is essential** — V1 had no visibility into bot comments or reviewer feedback after PR submission. V2's cron-triggered sweep catches issues within 4 hours.
+
+---
+
+## Where This Goes Next
+
+The pipeline is iterative. V2 fixed V1's gaps. V3 would fix whatever V2 misses. Here's what's on the horizon:
+
+- **Reviewer response drafting** — When a maintainer leaves a comment, draft a response using code context and project norms. Human approves before posting. Never auto-reply.
+- **Merge tracking and retrospectives** — Feed PR outcomes back into issue selection and validation. A merged PR validates the approach. A closed PR is a lesson.
+- **Cross-repo pattern learning** — After 4 repos, the pipeline knows TypeScript monorepo patterns, Go conventions, type definition workflows, and hybrid codebases. That knowledge should feed forward to new repos automatically.
+- **Continuous contribution mode** — Instead of one-shot runs, maintain a standing contribution stream. Monitor repos for new issues, maintain a fix queue, submit in batches. OSS maintenance as a service.
+- **Quality scoring** — Track review cycles per PR. First-review merges are better than three-round fixes. Use that signal to calibrate validation gates.
+
+**Full evolution details:** [docs/v2-evolution.md](docs/v2-evolution.md)
 
 ---
 

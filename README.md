@@ -1,6 +1,6 @@
 # AgentFlow OSS Contribution Pipeline
 
-**AgentFlow autonomously contributed to four of the largest open-source repositories on GitHub — microsoft/vscode, kubernetes/kubernetes, DefinitelyTyped/DefinitelyTyped, and grafana/grafana — across two pipeline generations.**
+**AgentFlow autonomously submitted pull requests to four of the largest open-source repositories on GitHub — microsoft/vscode, kubernetes/kubernetes, DefinitelyTyped/DefinitelyTyped, and grafana/grafana — across two pipeline generations.**
 
 It forked the repos, read each project's contribution guidelines, scouted and selected real issues, implemented fixes with tests, ran build/lint/validation gates, and submitted 14 pull requests following each project's specific rules.
 
@@ -43,7 +43,9 @@ More importantly: the pipeline **iterated on itself**. V1 exposed gaps — unsig
 
 ## The Pull Requests
 
-Every PR below is real, submitted to the upstream repository, and follows that project's contribution rules.
+Every PR below is real, submitted to the upstream repository, and follows that project's contribution rules. These are submissions, not accepted contributions.
+
+> **PR status (as of 19 October 2026):** of the 14 pull requests, 0 have been merged, 10 were closed unmerged by maintainers, and 4 remain open. This repository is an experiment log of the autonomous submission pipeline, not evidence of merged upstream contributions.
 
 ### V1 Pipeline (March 11, 2026)
 
